@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Monitor de Rede - Ferramenta para monitoramento de desempenho de rede">
+    <meta name="theme-color" content="#0078d7">
+    <title>Monitor de Rede</title>
+    <link rel="icon" href="/static/icons/favicon.ico">
+    <!-- PWA Support -->
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/themes.css">
+</head>
+<body data-theme="light">
+    <header>
+        <div class="logo-container">
+            <img src="/static/icons/logo.png" alt="Monitor de Rede Logo" class="logo">
+            <h1>Monitor de Rede</h1>
+        </div>
+        <div class="theme-toggle">
+            <button id="theme-toggle-btn" title="Alternar tema claro/escuro">
+                <svg id="theme-icon-light" viewBox="0 0 24 24" class="show">
+                    <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06z"></path>
+                </svg>
+                <svg id="theme-icon-dark" viewBox="0 0 24 24">
+                    <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#" class="active" data-section="dashboard">Dashboard</a></li>
+            <li><a href="#" data-section="history">Histórico</a></li>
+            <li><a href="#" data-section="speed-test">Teste de Velocidade</a></li>
+            <li><a href="#" data-section="settings">Configurações</a></li>
+            <li><a href="#" data-section="reports">Relatórios</a></li>
+        </ul>
+    </nav>
+
+    <main id="content">
+        <!-- Seção do Dashboard -->
+        <section id="dashboard" class="content-section active">
+            <h2>Dashboard</h2>
+            <div class="dashboard-grid">
+                <!-- Estatísticas Atuais -->
+                <div class="card">
+                    <h3>Velocidade Atual</h3>
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <span class="stat-label">Download</span>
+                            <span class="stat-value" id="current-download">0.00</span>
+                            <span class="stat-unit">Mbps</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Upload</span>
+                            <span class="stat-value" id="current-upload">0.00</span>
+                            <span class="stat-unit">Mbps</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Ping</span>
+                            <span class="stat-value" id="current-ping">0</span>
+                            <span class="stat-unit">ms</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gráfico de Velocidade -->
+                <div class="card chart-card">
+                    <h3>Gráfico de Velocidade</h3>
+                    <div class="chart-container">
+                        <canvas id="speed-chart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Uso de Dados -->
+                <div class="card">
+                    <h3>Uso de Dados</h3>
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <span class="stat-label">Download Total</span>
+                            <span class="stat-value" id="total-download">0.00</span>
+                            <span class="stat-unit">MB</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Upload Total</span>
+                            <span class="stat-value" id="total-upload">0.00</span>
+                            <span class="stat-unit">MB</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Informações do Sistema -->
+                <div class="card">
+                    <h3>Informações do Sistema</h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <span class="info-label">Sistema Operacional</span>
+                            <span class="info-value" id="system-os">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">CPU</span>
+                            <span class="info-value" id="system-cpu">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Memória</span>
+                            <span class="info-value" id="system-memory">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Tempo Ativo</span>
+                            <span class="info-value" id="system-uptime">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Controles -->
+                <div class="card control-card">
+                    <h3>Controles</h3>
+                    <div class="controls">
+                        <button id="start-monitoring" class="btn primary">Iniciar Monitoramento</button>
+                        <button id="stop-monitoring" class="btn secondary" disabled>Parar Monitoramento</button>
+                        <button id="reset-stats" class="btn secondary">Resetar Estatísticas</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Outras seções (inicialmente ocultas) -->
+        <section id="history" class="content-section">
+            <h2>Histórico</h2>
+            <div class="history-controls">
+                <div class="filter-controls">
+                    <label for="history-range">Período:</label>
+                    <select id="history-range">
+                        <option value="day">Hoje</option>
+                        <option value="week">Última Semana</option>
+                        <option value="month">Último Mês</option>
+                    </select>
+                </div>
+            </div>
+            <div class="chart-container large">
+                <canvas id="history-chart"></canvas>
+            </div>
+            <div class="history-summary">
+                <div class="summary-item">
+                    <h3>Total de Dados</h3>
+                    <div class="summary-value" id="history-total-download">0 MB</div>
+                    <div class="summary-label">Download</div>
+                </div>
+                <div class="summary-item">
+                    <h3>Total de Dados</h3>
+                    <div class="summary-value" id="history-total-upload">0 MB</div>
+                    <div class="summary-label">Upload</div>
+                </div>
+                <div class="summary-item">
+                    <h3>Média de Velocidade</h3>
+                    <div class="summary-value" id="history-avg-download">0 Mbps</div>
+                    <div class="summary-label">Download</div>
+                </div>
+                <div class="summary-item">
+                    <h3>Média de Velocidade</h3>
+                    <div class="summary-value" id="history-avg-upload">0 Mbps</div>
+                    <div class="summary-label">Upload</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="speed-test" class="content-section">
+            <h2>Teste de Velocidade</h2>
+            <div class="speed-test-container">
+                <div class="speed-test-card">
+                    <div class="speed-meter">
+                        <div class="meter-circle">
+                            <div class="meter-value">--</div>
+                            <div class="meter-label">Mbps</div>
+                        </div>
+                        <div class="meter-type">Download</div>
+                    </div>
+                    <div class="speed-meter">
+                        <div class="meter-circle">
+                            <div class="meter-value">--</div>
+                            <div class="meter-label">Mbps</div>
+                        </div>
+                        <div class="meter-type">Upload</div>
+                    </div>
+                    <div class="speed-meter small">
+                        <div class="meter-circle">
+                            <div class="meter-value">--</div>
+                            <div class="meter-label">ms</div>
+                        </div>
+                        <div class="meter-type">Ping</div>
+                    </div>
+                </div>
+                <div class="speed-test-controls">
+                    <button id="start-speed-test" class="btn primary">Iniciar Teste</button>
+                </div>
+                <div class="speed-test-info">
+                    <div class="info-item">
+                        <span class="info-label">Servidor:</span>
+                        <span class="info-value" id="server-name">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Último teste:</span>
+                        <span class="info-value" id="last-test-time">-</span>
+                    </div>
+                </div>
+                <div id="speed-test-progress" class="progress-bar">
+                    <div class="progress-inner"></div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="settings" class="content-section">
+            <h2>Configurações</h2>
+            <form id="settings-form" class="settings-form">
+                <div class="form-group">
+                    <label for="update-interval">Intervalo de Atualização (segundos)</label>
+                    <input type="number" id="update-interval" min="1" max="60" value="5">
+                </div>
+                <div class="form-group">
+                    <label for="max-history-days">Manter Histórico (dias)</label>
+                    <input type="number" id="max-history-days" min="1" max="365" value="30">
+                </div>
+                <div class="form-group">
+                    <label for="interface-select">Interface de Rede</label>
+                    <select id="interface-select">
+                        <option value="">Auto-detectar</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="theme-select">Tema</label>
+                    <select id="theme-select">
+                        <option value="light">Claro</option>
+                        <option value="dark">Escuro</option>
+                        <option value="auto">Auto (baseado no sistema)</option>
+                    </select>
+                </div>
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="start-with-monitoring" checked>
+                    <label for="start-with-monitoring">Iniciar monitoramento automaticamente</label>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn primary">Salvar Configurações</button>
+                    <button type="reset" class="btn secondary">Resetar</button>
+                </div>
+            </form>
+        </section>
+        
+        <section id="reports" class="content-section">
+            <h2>Relatórios</h2>
+            <div class="reports-controls">
+                <button id="generate-report-pdf" class="btn primary">Gerar Relatório PDF</button>
+                <button id="generate-report-txt" class="btn secondary">Gerar Relatório Texto</button>
+            </div>
+            <div class="reports-list">
+                <h3>Relatórios Recentes</h3>
+                <div id="reports-container" class="reports-container">
+                    <p class="empty-state">Nenhum relatório gerado recentemente.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-info">
+            <p>Monitor de Rede v1.0.0 | <a href="https://github.com/Caiolinooo" target="_blank">Caio Correia</a></p>
+        </div>
+        <div class="footer-links">
+            <a href="#" id="open-about">Sobre</a>
+        </div>
+    </footer>
+
+    <!-- Modal Sobre -->
+    <div id="about-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Sobre o Monitor de Rede</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Monitor de Rede é uma aplicação para monitorar e analisar o desempenho da sua conexão de rede.</p>
+                <p>Versão: 1.0.0</p>
+                <p>Desenvolvido por: <a href="https://github.com/Caiolinooo" target="_blank">Caio Valerio Goulart Correia</a></p>
+                <p>&copy; 2023-2024 Todos os direitos reservados.</p>
+                <p>Este software é licenciado sob termos proprietários.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/chart.min.js"></script>
+    <script src="/static/js/theme.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/pwa.js"></script>
+</body>
+</html>
