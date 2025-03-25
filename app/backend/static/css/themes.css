@@ -1,0 +1,164 @@
+/* 
+ * themes.css - Configuração de temas claro/escuro para o Monitor de Rede
+ * Autor: Caio Valerio Goulart Correia
+ * Versão: 1.0.0
+ */
+
+/* Tema Claro (Padrão) */
+:root, [data-theme="light"] {
+  /* Cores Principais */
+  --primary-color: #0078d7;
+  --primary-color-light: #e3f2fd;
+  --primary-color-dark: #005a9e;
+  --secondary-color: #e9ecef;
+  --secondary-color-dark: #dee2e6;
+  --accent-color: #ff4081;
+  
+  /* Cores de Fundo */
+  --bg-color: #f8f9fa;
+  --bg-color-secondary: #ffffff;
+  --card-bg-color: #ffffff;
+  --input-bg-color: #ffffff;
+  
+  /* Texto */
+  --text-color: #212529;
+  --text-color-secondary: #6c757d;
+  --heading-color: #343a40;
+  
+  /* Bordas e Divisores */
+  --border-color: #dee2e6;
+  --border-color-light: #e9ecef;
+  
+  /* Estados e Feedback */
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --info-color: #17a2b8;
+  
+  /* Interação */
+  --hover-color: rgba(0, 0, 0, 0.05);
+  --focus-color: rgba(0, 120, 215, 0.25);
+  
+  /* Sombras */
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Tema Escuro */
+[data-theme="dark"] {
+  /* Cores Principais */
+  --primary-color: #0090ff;
+  --primary-color-light: #1f3d5a;
+  --primary-color-dark: #33adff;
+  --secondary-color: #2a2d31;
+  --secondary-color-dark: #3a3d42;
+  --accent-color: #ff4081;
+  
+  /* Cores de Fundo */
+  --bg-color: #1a1d21;
+  --bg-color-secondary: #252a31;
+  --card-bg-color: #252a31;
+  --input-bg-color: #1a1d21;
+  
+  /* Texto */
+  --text-color: #e9ecef;
+  --text-color-secondary: #adb5bd;
+  --heading-color: #f8f9fa;
+  
+  /* Bordas e Divisores */
+  --border-color: #343a40;
+  --border-color-light: #2a2d31;
+  
+  /* Estados e Feedback */
+  --success-color: #5cb85c;
+  --warning-color: #f0ad4e;
+  --danger-color: #d9534f;
+  --info-color: #5bc0de;
+  
+  /* Interação */
+  --hover-color: rgba(255, 255, 255, 0.05);
+  --focus-color: rgba(0, 144, 255, 0.25);
+  
+  /* Sombras */
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --box-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* Melhorias de Acessibilidade para Modo Escuro */
+[data-theme="dark"] img {
+  filter: brightness(.9);
+}
+
+/* Melhorias de Contraste para Estatísticas */
+[data-theme="dark"] .stat-value {
+  color: var(--primary-color-dark);
+}
+
+[data-theme="dark"] .summary-value {
+  color: var(--primary-color-dark);
+}
+
+[data-theme="dark"] .meter-value {
+  color: var(--primary-color-dark);
+}
+
+/* Ajustes de cores para o Dashboard */
+[data-theme="dark"] .dashboard-grid .card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Ajustes de cores para elementos interativos */
+[data-theme="dark"] .btn.primary {
+  background-color: var(--primary-color);
+}
+
+[data-theme="dark"] .btn.primary:hover {
+  background-color: var(--primary-color-dark);
+  box-shadow: 0 2px 8px rgba(0, 144, 255, 0.4);
+}
+
+[data-theme="dark"] .btn.secondary {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .btn.secondary:hover {
+  background-color: var(--secondary-color-dark);
+}
+
+/* Ajustes para elementos de formulário */
+[data-theme="dark"] input, 
+[data-theme="dark"] select, 
+[data-theme="dark"] textarea {
+  color: var(--text-color);
+  background-color: var(--input-bg-color);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] input:focus, 
+[data-theme="dark"] select:focus, 
+[data-theme="dark"] textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 144, 255, 0.25);
+}
+
+/* Animação de transição suave entre temas */
+body {
+  transition: background-color 0.3s ease,
+              color 0.3s ease;
+}
+
+.card, 
+.btn, 
+input, 
+select, 
+textarea, 
+.stat-item,
+.meter-circle,
+.progress-bar,
+.modal-content {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
