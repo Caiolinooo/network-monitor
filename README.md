@@ -109,4 +109,4 @@ Licença de Software Proprietário
 
 O software é fornecido "no estado em que se encontra", sem garantias de qualquer tipo.
 
-© 2023-2024 Caio Valerio Goulart Correia. Todos os direitos reservados.
+© 2023-2025 Caio Valerio Goulart Correia. Todos os direitos reservados.
